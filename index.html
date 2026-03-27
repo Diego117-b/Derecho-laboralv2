@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Derecho Laboral | Tecnológico Cuicalli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #111a2d;
+      --panel: rgba(13, 21, 38, 0.8);
+      --panel-2: rgba(255, 255, 255, 0.04);
+      --line: rgba(201, 166, 70, 0.28);
+      --gold: #c9a646;
+      --gold-soft: #e4cd8d;
+      --text: #edf2f7;
+      --muted: #b7c0d1;
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+      --radius: 22px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(201,166,70,.08), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(201,166,70,.06), transparent 24%),
+        linear-gradient(180deg, #08101d 0%, #0b1220 60%, #0a1020 100%);
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.22), rgba(0,0,0,0));
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 14, 28, 0.72);
+      border-bottom: 1px solid rgba(201,166,70,.12);
+    }
+
+    .topbar-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,166,70,.16);
+      padding: 8px;
+      box-shadow: var(--shadow);
+      object-fit: contain;
+    }
+
+    .brand-text small {
+      display: block;
+      color: var(--gold-soft);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: .68rem;
+      margin-bottom: 2px;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .94rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: .25s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav a:hover {
+      color: white;
+      border-color: rgba(201,166,70,.18);
+      background: rgba(255,255,255,.03);
+    }
+
+    .hero {
+      padding: 76px 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-card,
+    .section-panel,
+    .mini-card,
+    .stat-card,
+    .timeline-card,
+    .team-panel,
+    .source-panel {
+      background: var(--panel);
+      border: 1px solid rgba(201,166,70,.14);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(201,166,70,.15), transparent 65%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,166,70,.18);
+      color: var(--gold-soft);
+      background: rgba(255,255,255,.02);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .72rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1,
+    h2,
+    h3.section-title,
+    .team-title,
+    .source-title {
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 5vw, 4.7rem);
+      margin-bottom: 16px;
+      color: white;
+    }
+
+    .hero p.lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 0 0 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 24px 0 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #b9922f, #dbc06a);
+      color: #111827;
+    }
+    .btn-secondary {
+      border: 1px solid rgba(201,166,70,.2);
+      background: rgba(255,255,255,.02);
+      color: white;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .mini-chip {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(201,166,70,.12);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .mini-chip strong {
+      display: block;
+      color: white;
+      font-size: .98rem;
+      margin-bottom: 4px;
+    }
+
+    .mini-chip span {
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .hero-card {
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid rgba(201,166,70,.12);
+      filter: saturate(.9) brightness(.92);
+    }
+
+    .hero-card .quote {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(201,166,70,.12);
+      color: var(--muted);
+      font-size: .97rem;
+    }
+
+    .hero-card .quote strong {
+      display: block;
+      color: var(--gold-soft);
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    section.content-section {
+      padding: 30px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 60ch;
+      color: var(--muted);
+    }
+
+    h2 {
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .section-panel {
+      padding: 28px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .text-block p { margin-top: 0; color: var(--muted); }
+
+    .image-box img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: contain; /* evita recorte */
+      background: #0b1220; /* relleno elegante si hay espacio */
+      border-radius: 18px;
+      border: 1px solid rgba(201,166,70,.12);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      color: #9eabc0;
+      font-size: .88rem;
+    }
+
+    .stats-grid,
+    .rights-grid,
+    .institution-grid,
+    .team-grid,
+    .sources-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 22px;
+    }
+
+    .stat-card,
+    .mini-card,
+    .timeline-card,
+    .source-item {
+      padding: 22px;
+    }
+
+    .stat-card strong {
+      display: block;
+      color: var(--gold-soft);
+      font-size: 1.45rem;
+      margin-bottom: 6px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .stat-card span { color: var(--muted); font-size: .94rem; }
+
+    .rights-grid,
+    .institution-grid,
+    .sources-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mini-card {
+      background: var(--panel-2);
+      border: 1px solid rgba(201,166,70,.12);
+      border-radius: 20px;
+    }
+
+    .mini-card h3,
+    .timeline-card h3,
+    .source-item h3 {
+      margin: 0 0 10px;
+      font-size: 1.16rem;
+      color: white;
+    }
+
+    .mini-card p,
+    .timeline-card p,
+    .source-item p,
+    .source-item li {
+      color: var(--muted);
+      margin: 0;
+      font-size: .96rem;
+    }
+
+    .legal-list {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .legal-list li { margin-bottom: 8px; }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .timeline-card {
+      position: relative;
+      padding-left: 72px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(201,166,70,.12);
+      border-radius: 20px;
+    }
+
+    .timeline-step {
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #b9922f, #dbc06a);
+      color: #111827;
+      font-weight: 700;
+      font-size: .95rem;
+    }
+
+    .accent-box {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(201,166,70,.12), rgba(255,255,255,.02));
+      border: 1px solid rgba(201,166,70,.16);
+      color: #dde5f3;
+    }
+
+    .institution-grid .mini-card {
+      min-height: 168px;
+    }
+
+    .team-panel,
+    .source-panel {
+      padding: 30px;
+    }
+
+    .team-title,
+    .source-title {
+      font-size: 2.35rem;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .team-sub,
+    .source-sub {
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team-member {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(201,166,70,.12);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .team-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #111827;
+      background: linear-gradient(135deg, #b9922f, #dbc06a);
+    }
+
+    .team-member strong {
+      display: block;
+      color: white;
+      font-size: .98rem;
+    }
+
+    .team-member span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .source-item {
+      border-radius: 20px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(201,166,70,.12);
+    }
+
+    .source-item ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .footer {
+      padding: 34px 0 48px;
+      color: #97a6bf;
+      text-align: center;
+    }
+
+    .footer-line {
+      width: min(100%, 1180px);
+      margin: 0 auto 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,166,70,.3), transparent);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .two-col,
+      .stats-grid,
+      .rights-grid,
+      .institution-grid,
+      .team-grid,
+      .sources-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        padding: 14px 0;
+      }
+      .brand { justify-content: center; }
+      .nav { justify-content: center; }
+      .hero { padding-top: 38px; }
+      .hero-copy,
+      .hero-card,
+      .section-panel,
+      .team-panel,
+      .source-panel { padding: 22px; }
+      .hero-highlights { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#inicio">
+        <img src="logo.png" alt="Logo del Tecnológico Cuicalli" class="brand-logo">
+        <div class="brand-text">
+          <small>Tecnológico Cuicalli</small>
+          <strong>Derecho Laboral</strong>
+        </div>
+      </a>
+      <nav class="nav" aria-label="Menú principal">
+        <a href="#introduccion">Introducción</a>
+        <a href="#fundamento">Fundamento</a>
+        <a href="#derechos">Derechos</a>
+        <a href="#contrato">Contrato</a>
+        <a href="#despido">Despido</a>
+        <a href="#instituciones">Instituciones</a>
+        <a href="#equipo">Equipo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Proyecto académico • Justicia laboral</span>
+          <h1>Marco jurídico del trabajo en México</h1>
+          <p class="lead">
+            El derecho laboral es la rama del derecho social que regula las relaciones entre trabajadores y empleadores, protege los derechos fundamentales del trabajador y establece condiciones justas, dignas y seguras dentro del ámbito laboral. Su propósito central es equilibrar la relación entre capital y trabajo, garantizando justicia social y seguridad jurídica.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#fundamento">Explorar contenido</a>
+            <a class="btn btn-secondary" href="#equipo">Ver integrantes</a>
+          </div>
+          <div class="hero-highlights">
+            <div class="mini-chip">
+              <strong>Artículo 123</strong>
+              <span>Base constitucional del derecho del trabajo.</span>
+            </div>
+            <div class="mini-chip">
+              <strong>LFT</strong>
+              <span>Norma principal de la relación laboral.</span>
+            </div>
+            <div class="mini-chip">
+              <strong>Justicia social</strong>
+              <span>Protección, equidad y dignidad humana.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=1000&q=80" alt="Justicia laboral y derecho">
+          <div class="quote">
+            <strong>Idea central</strong>
+            La regulación laboral no solo protege al trabajador: también brinda certidumbre al empleador, fomenta relaciones formales y favorece un entorno productivo con reglas claras.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="content-section" id="introduccion">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Introducción</h2>
+            <p>Una visión general de la función social, jurídica y humana del derecho laboral.</p>
+          </div>
+        </div>
+        <div class="section-panel">
+          <div class="text-block">
+            <p>
+              El derecho laboral regula las relaciones jurídicas derivadas de la prestación de un trabajo personal subordinado. Esta rama jurídica nació para responder a las desigualdades históricas entre empleadores y trabajadores, estableciendo un sistema de protección mínima que impide condiciones abusivas y reconoce derechos esenciales como el salario, la jornada limitada, el descanso, la seguridad social y la estabilidad en el empleo.
+            </p>
+            <p>
+              Su naturaleza es eminentemente social, ya que no se limita a ordenar contratos o pagos, sino que busca preservar la dignidad humana en el trabajo. Por ello, el derecho laboral se relaciona directamente con la justicia social, el bienestar colectivo y la protección de la persona trabajadora como parte estructural del desarrollo económico de un país.
+            </p>
+            <div class="accent-box">
+              El trabajo no debe entenderse solo como una actividad económica, sino como una condición que permite al individuo desarrollarse, sostener a su familia y participar con dignidad en la vida social.
+            </div>
+          </div>
+          
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><strong>Protección</strong><span>Defiende a la parte más vulnerable de la relación laboral.</span></div>
+          <div class="stat-card"><strong>Equilibrio</strong><span>Busca armonía entre intereses del patrón y del trabajador.</span></div>
+          <div class="stat-card"><strong>Seguridad</strong><span>Establece certeza jurídica sobre obligaciones y derechos.</span></div>
+          <div class="stat-card"><strong>Dignidad</strong><span>Promueve condiciones humanas, seguras y justas de trabajo.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="fundamento">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Fundamento legal</h2>
+            <p>Principales bases normativas que sostienen el derecho laboral mexicano.</p>
+          </div>
+        </div>
+        <div class="section-panel">
+          <div class="rights-grid">
+            <article class="mini-card">
+              <h3>Constitución Política</h3>
+              <p>
+                El artículo 123 de la Constitución Política de los Estados Unidos Mexicanos constituye la base fundamental del derecho laboral en México. En él se consagran garantías relacionadas con salario, jornadas, descansos, seguridad e igualdad en el trabajo.
+              </p>
+            </article>
+            <article class="mini-card">
+              <h3>Ley Federal del Trabajo</h3>
+              <p>
+                La Ley Federal del Trabajo desarrolla el contenido constitucional y establece reglas concretas sobre contratación, despido, prestaciones, obligaciones, procedimientos y derechos colectivos.
+              </p>
+            </article>
+            <article class="mini-card">
+              <h3>Ley del Seguro Social</h3>
+              <p>
+                Garantiza el acceso a servicios médicos, incapacidades, riesgos de trabajo, pensiones y protección para el trabajador y su familia dentro del sistema de seguridad social.
+              </p>
+            </article>
+            <article class="mini-card">
+              <h3>Ley del INFONAVIT</h3>
+              <p>
+                Regula la participación del trabajador en sistemas de acceso a vivienda y consolida una dimensión social adicional en la protección del empleo formal.
+              </p>
+            </article>
+          </div>
+          <div class="accent-box">
+            <strong style="display:block; margin-bottom:8px; color:white;">Características esenciales del derecho laboral</strong>
+            <ul class="legal-list">
+              <li>Es protector del trabajador, considerado la parte más vulnerable.</li>
+              <li>Regula relaciones de subordinación jurídica.</li>
+              <li>Tiene un carácter social y de interés público.</li>
+              <li>Reconoce derechos irrenunciables y mínimos obligatorios.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="derechos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Principales derechos laborales</h2>
+            <p>Derechos mínimos que buscan una relación de trabajo justa, segura y equilibrada.</p>
+          </div>
+        </div>
+        <div class="rights-grid">
+          <article class="mini-card">
+            <h3>Salario justo</h3>
+            <p>
+              Toda persona trabajadora tiene derecho a recibir una remuneración digna, suficiente y equitativa por sus servicios. El salario no debe ser discriminatorio y debe pagarse conforme a la ley y a las condiciones pactadas.
+            </p>
+          </article>
+          <article class="mini-card">
+            <h3>Jornada y descanso</h3>
+            <p>
+              La ley limita la duración de la jornada laboral y reconoce periodos obligatorios de descanso, incluyendo días semanales, vacaciones y días de descanso obligatorio.
+            </p>
+          </article>
+          <article class="mini-card">
+            <h3>Seguridad y salud</h3>
+            <p>
+              El patrón debe proporcionar condiciones adecuadas de seguridad e higiene para prevenir riesgos de trabajo y proteger la integridad física y mental del trabajador.
+            </p>
+          </article>
+          <article class="mini-card">
+            <h3>Derechos colectivos</h3>
+            <p>
+              Se reconoce la libertad sindical, la negociación colectiva y el derecho de huelga como mecanismos legítimos de defensa e intervención colectiva en el ámbito laboral.
+            </p>
+          </article>
+          <article class="mini-card">
+            <h3>Prestaciones mínimas</h3>
+            <p>
+              Entre los derechos laborales también se encuentran el aguinaldo, la prima vacacional, la afiliación a la seguridad social, el pago de horas extra y el acceso a prestaciones establecidas por ley.
+            </p>
+          </article>
+          <article class="mini-card">
+            <h3>Derechos irrenunciables</h3>
+            <p>
+              Ningún trabajador puede renunciar válidamente a los derechos mínimos reconocidos por la ley. Cualquier pacto en contrario se considera nulo por disposición legal.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="contrato">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Contrato individual de trabajo</h2>
+            <p>Instrumento que formaliza la prestación de servicios personales subordinados a cambio de un salario.</p>
+          </div>
+        </div>
+        <div class="section-panel two-col">
+          <div class="text-block">
+            <p>
+              El contrato individual de trabajo es el acuerdo mediante el cual una persona se obliga a prestar a otra un trabajo personal subordinado, a cambio de un salario. De conformidad con la Ley Federal del Trabajo, este contrato puede celebrarse por tiempo determinado, por tiempo indeterminado o para obra específica, según la naturaleza de la actividad a desarrollar.
+            </p>
+            <p>
+              Aunque puede existir verbalmente en ciertos casos, lo recomendable es que conste por escrito, ya que ello permite dejar claras las condiciones laborales, evita controversias y facilita la prueba de derechos y obligaciones ante una posible disputa.
+            </p>
+            <ul class="legal-list">
+              <li>Debe señalar funciones, salario, jornada y lugar de trabajo.</li>
+              <li>Puede incluir prestaciones superiores a las de ley, nunca inferiores.</li>
+              <li>Sirve como referencia central en caso de conflicto laboral.</li>
+            </ul>
+          </div>
+          <div class="image-box">
+            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1000&q=80" alt="Contrato y documentación laboral">
+            <div class="image-caption">La claridad contractual fortalece la seguridad jurídica de ambas partes.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="despido">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Despido injustificado</h2>
+            <p>Consecuencias legales cuando la terminación de la relación laboral carece de causa válida o comprobable.</p>
+          </div>
+        </div>
+        <div class="section-panel">
+          <p style="margin-top:0; color: var(--muted);">
+            Se considera despido injustificado cuando el trabajador es separado de su empleo sin una causa legal válida o cuando el patrón no puede demostrarla. De acuerdo con la Ley Federal del Trabajo, la carga de la prueba corresponde al patrón. Además, el aviso de despido debe entregarse por escrito, indicando la conducta imputada y la fecha en que ocurrió. Si no se cumple con esta formalidad, el despido puede presumirse injustificado.
+          </p>
+          <div class="rights-grid" style="margin-top:18px;">
+            <article class="mini-card">
+              <h3>Posibles causas justificadas</h3>
+              <p>Entre ellas se encuentran la falta de honradez, actos de violencia, amenazas, daños intencionales a la empresa o más de tres faltas injustificadas en un periodo de treinta días.</p>
+            </article>
+            <article class="mini-card">
+              <h3>Derechos del trabajador despedido</h3>
+              <p>La persona trabajadora puede optar por la reinstalación en su puesto o por la indemnización constitucional correspondiente, según el caso concreto.</p>
+            </article>
+            <article class="mini-card">
+              <h3>Indemnización</h3>
+              <p>Puede comprender tres meses de salario, veinte días por cada año trabajado en ciertos supuestos, prima de antigüedad y salarios caídos.</p>
+            </article>
+            <article class="mini-card">
+              <h3>Plazo para reclamar</h3>
+              <p>El trabajador cuenta con un plazo legal para hacer valer su reclamación, por lo que debe actuar oportunamente y buscar asesoría especializada.</p>
+            </article>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-card">
+              <div class="timeline-step">1</div>
+              <h3>Conciliación previa</h3>
+              <p>Antes de acudir a juicio, el trabajador debe presentarse ante el Centro de Conciliación para intentar un acuerdo con el patrón.</p>
+            </article>
+            <article class="timeline-card">
+              <div class="timeline-step">2</div>
+              <h3>Presentación de demanda</h3>
+              <p>Si no existe conciliación, se emite la constancia correspondiente y el trabajador puede presentar formalmente su demanda ante el tribunal laboral.</p>
+            </article>
+            <article class="timeline-card">
+              <div class="timeline-step">3</div>
+              <h3>Resolución judicial</h3>
+              <p>El tribunal analiza pruebas, argumentos y determina si existió despido justificado o injustificado, así como la reparación procedente.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="instituciones">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Dependencias e instituciones en materia laboral</h2>
+            <p>Organismos encargados de regular, asesorar, conciliar y resolver conflictos laborales.</p>
+          </div>
+        </div>
+        <div class="institution-grid">
+          <article class="mini-card">
+            <h3>Secretaría del Trabajo y Previsión Social (STPS)</h3>
+            <p>Dirige la política laboral, vigila el cumplimiento de normas de trabajo, promueve capacitación y revisa medidas de seguridad e higiene.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Procuraduría Federal de la Defensa del Trabajo (PROFEDET)</h3>
+            <p>Proporciona asesoría, orientación, conciliación y defensa legal gratuita a personas trabajadoras en conflicto con sus empleadores.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Centro Federal de Conciliación y Registro Laboral</h3>
+            <p>Interviene en la conciliación prejudicial y lleva el registro de sindicatos y contratos colectivos dentro del nuevo sistema laboral.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Tribunales Laborales</h3>
+            <p>Son las autoridades encargadas de impartir justicia en materia laboral y resolver conflictos individuales y colectivos de trabajo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-panel two-col">
+          <div class="image-box">
+            <img src="imagen_reflexiva.png" alt="Reflexión justicia laboral">
+          </div>
+          <div class="text-block">
+            <div class="accent-box">
+              “Todo trabajador tiene derecho a un salario justo y condiciones laborales dignas, sin discriminación ni explotación, para vivir con dignidad y contribuir al bienestar de la sociedad.”
+              <br><br>
+              <strong>Karl Marx</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="equipo">
+      <div class="container">
+        <div class="team-panel">
+          <h2 class="team-title">Equipo de trabajo</h2>
+          <p class="team-sub">Tecnológico Cuicalli</p>
+          <div class="team-grid">
+            <article class="team-member"><div class="team-badge">1</div><div><strong>Lic. en Derecho</strong><span>Área jurídica</span></div></article>
+            <article class="team-member"><div class="team-badge">2</div><div><strong>Lic. en Mercadotecnia</strong><span>Área estratégica</span></div></article>
+            <article class="team-member"><div class="team-badge">3</div><div><strong>Ing. en Sistemas</strong><span>Área tecnológica</span></div></article>
+          </div>
+          <div style="margin-top:25px; font-size:14px; color:#94a3b8; text-align:center;">
+            La información presentada en la siguiente página es de carácter educativo-informativo, no sustituye asesoramiento jurídico profesional
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="fuentes">
+      <div class="container">
+        <div class="source-panel">
+          <h2 class="source-title">Base del contenido</h2>
+          <p class="source-sub">Síntesis estructurada a partir del documento proporcionado para la elaboración de la página web.</p>
+          <div class="sources-grid">
+            <article class="source-item">
+              <h3>Documento de referencia</h3>
+              <p>Derecho Laboral Completo</p>
+              <ul>
+                <li>Introducción al derecho laboral</li>
+                <li>Fundamento legal y características</li>
+                <li>Derechos laborales y despido injustificado</li>
+                <li>Dependencias en materia laboral</li>
+              </ul>
+            </article>
+            <article class="source-item">
+              <h3>Enfoque del sitio</h3>
+              <p>Diseño elegante de carácter jurídico, con presentación académica, navegación clara y secciones visuales equilibradas para una exposición profesional.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-line"></div>
+    <div class="container">
+      Proyecto académico de Derecho Laboral · Tecnológico Cuicalli
+    </div>
+  </footer>
+</body>
+</html>
+
